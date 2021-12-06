@@ -1,13 +1,24 @@
 package com.example.maru.model;
 
+import android.widget.DatePicker;
+
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
+import androidx.databinding.Bindable;
+import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
+import androidx.lifecycle.ViewModel;
+
 
 public class Meeting {
 
     /** Identifier */
-    private final long id;
+    private long id;
+
+    private DatePicker date;
 
     /** Start of meeting */
     private LocalDateTime startOfMeeting;
@@ -15,8 +26,8 @@ public class Meeting {
     /** End of meeting */
     private LocalDateTime endOfMeeting;
 
-    /** Room */
-    private Room roomNumber;
+    /** Room name */
+    private String room;
 
     /** Email  */
     private String mail;
@@ -25,13 +36,15 @@ public class Meeting {
     private String subject;
 
     /** Constructor */
-    public Meeting(long id, LocalDateTime startOfMeeting, LocalDateTime endOfMeeting, Room roomNumber, String mail, String subject) {
+    public Meeting(long id,String subject, String room, String mail, LocalDateTime startOfMeeting, LocalDateTime endOfMeeting ) {
         this.id = id;
+        this.subject = subject;
+        this.room = room;
+        this.mail = mail;
         this.startOfMeeting = startOfMeeting;
         this.endOfMeeting = endOfMeeting;
-        this.roomNumber = roomNumber;
-        this.mail = mail;
-        this.subject = subject;
+
+
     }
 
     /** Getters and Setters */
@@ -51,14 +64,6 @@ public class Meeting {
         this.startOfMeeting = startOfMeeting;
     }
 
-    public LocalDateTime getEndOfMeeting() {
-        return endOfMeeting;
-    }
-
-    public void setEndOfMeeting(LocalDateTime endOfMeeting) {
-        this.endOfMeeting = endOfMeeting;
-    }
-
     public String getRoom() {
         return room;
     }
@@ -67,6 +72,15 @@ public class Meeting {
         this.room = room;
     }
 
+    public LocalDateTime getEndOfMeeting() {
+        return endOfMeeting;
+    }
+
+    public void setEndOfMeeting(LocalDateTime endOfMeeting) {
+        this.endOfMeeting = endOfMeeting;
+    }
+
+
     public String getMail() {
         return mail;
     }
@@ -74,6 +88,7 @@ public class Meeting {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
 
     public String getSubject() {
         return subject;

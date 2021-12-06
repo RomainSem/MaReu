@@ -1,5 +1,7 @@
 package com.example.maru.service;
 
+import androidx.annotation.StringRes;
+
 import com.example.maru.model.Meeting;
 import com.example.maru.model.Room;
 
@@ -8,7 +10,7 @@ import java.util.List;
 
 public class DummyMeetingApiService implements MeetingApiService{
     private List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
-    private List<Room> rooms = RoomGenerator.generateRooms();
+    private List<Room> rooms = new ArrayList<>();
 
 
     @Override
@@ -28,6 +30,11 @@ public class DummyMeetingApiService implements MeetingApiService{
     }
 
     @Override
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    @Override
     public void deleteMeeting(Meeting meeting) {
         meetings.remove(meeting);
     }
@@ -38,10 +45,10 @@ public class DummyMeetingApiService implements MeetingApiService{
     }
 
     @Override
-    public void setIsOccupied(long roomNumber, boolean isOccupied) {
+    public void setIsOccupied(@StringRes int name, boolean isOccupied) {
         for(Room r: rooms) {
-            if(r.getRoomNumber()== roomNumber) {
-                r.setIsOccupied(isOccupied);
+            if(r.getName() == name) {
+                r.setOccupied(isOccupied);
             }
         }
     }

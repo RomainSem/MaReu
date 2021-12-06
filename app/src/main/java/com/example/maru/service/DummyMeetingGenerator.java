@@ -12,13 +12,25 @@ import java.util.List;
 
 public abstract class DummyMeetingGenerator {
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
-            new Meeting(0, LocalDateTime.of(
+            new Meeting(0, "La fin du monde",
+                    Room.Donkey,
+                    "randommail@hotmail.fr",
+                    LocalDateTime.of(
                     LocalDate.now(),
                     LocalTime.of(12,30)),
             LocalDateTime.of(
                     LocalDate.now(),
-                    LocalTime.of(13,15)),
-                   
+                    LocalTime.of(13,15))
+            ),
+            new Meeting(0, "La fin du monde",
+                    Room.Peach,
+                    "randommail@hotmail.fr",
+                    LocalDateTime.of(
+                            LocalDate.now(),
+                            LocalTime.of(12,30)),
+                    LocalDateTime.of(
+                            LocalDate.now(),
+                            LocalTime.of(13,15))
             )
     );
 

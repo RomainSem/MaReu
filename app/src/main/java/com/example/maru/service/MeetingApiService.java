@@ -1,5 +1,7 @@
 package com.example.maru.service;
 
+import androidx.annotation.StringRes;
+
 import com.example.maru.model.Meeting;
 import com.example.maru.model.Room;
 
@@ -16,6 +18,8 @@ public interface MeetingApiService {
 
     List<Room>  getOccupiedRooms();
 
+    List<Room> getRooms();
+
     /**
      * Deletes a meeting
      */
@@ -26,5 +30,5 @@ public interface MeetingApiService {
      */
     void createMeeting(Meeting meeting);
 
-    void setIsOccupied(long meetingId, boolean isOccupied);
+    void setIsOccupied(@StringRes int name, boolean isOccupied);
 }

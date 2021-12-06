@@ -1,38 +1,50 @@
 package com.example.maru.model;
 
-public class Room {
+import androidx.annotation.StringRes;
 
-    private String room;
-    private int roomNumber;
-    private boolean isOccupied;
+import com.example.maru.R;
 
-    public Room(int roomNumber){
-        this.room = "Room";
-        this.roomNumber = roomNumber;
-        this.isOccupied = false;
-    }
+    public enum Room {
+        Peach(R.string.peach, false),
+        Mario(R.string.mario, false),
+        Luigi(R.string.luigi, false),
+        Donkey(R.string.donkey, false),
+        Toad(R.string.toad, false),
+        Yoshi(R.string.yoshi, false),
+        Wario(R.string.wario, false),
+        Kirby(R.string.kirby, false),
+        Zelda(R.string.zelda, false),
+        Link(R.string.link, false);
 
-    public String getRoom() {
-        return room;
-    }
+        private boolean isOccupied;
+        private long id;
 
-    public void setRoom(String room) {
-        this.room = room;
-    }
+        @StringRes
+        private final int mName;
 
-    public int getRoomNumber() {
-        return roomNumber;
-    }
+        Room(@StringRes int name, boolean isOccupied) {
+            mName = name;
+            this.isOccupied = isOccupied;
+        }
 
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
-    }
+        public long getId() {
+            return id;
+        }
 
-    public boolean isOccupied(){
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public void setOccupied(boolean occupied) {
+            isOccupied = occupied;
+        }
+
+        public int getName() {
+            return mName;
+        }
+
+        public boolean isOccupied(){
         return isOccupied;
-    }
+        }
 
-    public void setIsOccupied(boolean isOccupied) {
-        this.isOccupied = isOccupied;
-    }
 }
