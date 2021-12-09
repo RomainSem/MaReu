@@ -2,6 +2,7 @@ package com.example.maru.model;
 
 import android.widget.DatePicker;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import androidx.databinding.Bindable;
@@ -18,7 +19,7 @@ public class Meeting {
     /** Identifier */
     private long id;
 
-    private DatePicker date;
+    private LocalDate date;
 
     /** Start of meeting */
     private LocalDateTime startOfMeeting;
@@ -36,11 +37,12 @@ public class Meeting {
     private String subject;
 
     /** Constructor */
-    public Meeting(long id,String subject, String room, String mail, LocalDateTime startOfMeeting, LocalDateTime endOfMeeting ) {
+    public Meeting(long id,String subject, String room, String mail, LocalDate date, LocalDateTime startOfMeeting, LocalDateTime endOfMeeting ) {
         this.id = id;
         this.subject = subject;
         this.room = room;
         this.mail = mail;
+        this.date = date;
         this.startOfMeeting = startOfMeeting;
         this.endOfMeeting = endOfMeeting;
 
@@ -89,6 +91,13 @@ public class Meeting {
         this.mail = mail;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     public String getSubject() {
         return subject;

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui_meeting_list.ListMeetingActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -17,6 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/app_name">
+
 
         <ImageButton
             android:id="@+id/filter_button"

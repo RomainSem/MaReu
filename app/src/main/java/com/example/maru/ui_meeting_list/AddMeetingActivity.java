@@ -4,37 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import android.app.TimePickerDialog;
+
+
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
+
 import android.widget.Spinner;
-import android.widget.TimePicker;
+
 import android.widget.Toast;
 
 import com.example.maru.R;
 import com.example.maru.databinding.ActivityAddMeetingBinding;
 import com.example.maru.model.Meeting;
 import com.example.maru.service.MeetingApiService;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class AddMeetingActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private ActivityAddMeetingBinding binding;
     private MeetingApiService mApiService;
     private Spinner spinnerRoom;
 
-    private CheckBox checkBoxIsSpinnerMode;
-    private CheckBox checkBoxIs24HView;
-    private int lastSelectedHour;
-    private int lastSelectedMinute;
 
 
 
@@ -42,6 +41,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
+        spinnerRoom = findViewById(R.id.spinner_room);
 
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -49,33 +49,37 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.room_choice, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerRoom.setAdapter(adapter);
+        spinnerRoom.setAdapter(adapter); //TODO SPINNER
         spinnerRoom.setOnItemSelectedListener(this);
-        onSubmit();
+
+        binding.startTime.setOnClickListener(v -> buttonSelectTime("debut"));
+        binding.endTime.setOnClickListener(v -> buttonSelectTime("fin"));
+        binding.create.setOnClickListener(v -> onSubmit());
+
 
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view == binding.create) {
-            onSubmit();
-        }
-        if(view == binding.startTime) {
-            buttonSelectTime();
-        }
-        if(view == binding.endTime) {
-            buttonSelectTime();
-        }
-    }
+    private void buttonSelectTime(String debutfin) {
+        MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .build();
+        timePicker.show(getSupportFragmentManager(), "fragment tag");
+        timePicker.addOnPositiveButtonClickListener(view -> {
+            int startHour = timePicker.getHour();
+            int startMinute = timePicker.getMinute();
+            int endHour = timePicker.getHour();
+            int endMinute = timePicker.getMinute();
+            if(debutfin == "debut") {
+                binding.startTime.setText(startHour + ":" + startMinute);
+            }
+            else if (debutfin == "fin"){
+                if(endHour < startHour) {
+                    binding.endTime.setError("End meeting time cannot happen before start meeting time");
+                }
+                binding.endTime.setText(endHour + ":" + endMinute);
+                }
 
-    private void buttonSelectTime() {
-        TimePickerDialog timePickerDialog = new TimePickerDialog(
-                AddMeetingActivity.this,
-                (timePicker, i, i1) -> {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(0, 0, 0, lastSelectedHour, lastSelectedMinute);
-
-                },12, 0, true);
+        });
 
         }
 
@@ -83,9 +87,10 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     private void onSubmit() {
         String subject = binding.meetingSubject.getText().toString();
         String email = binding.participants.getText().toString();
-        String startTime = binding.startTime.getText().toString();
-        String endTime = binding.endTime.getText().toString();
+        LocalDateTime startTime = LocalDateTime.parse(binding.startTime.toString());
+        LocalDateTime endTime = LocalDateTime.parse(binding.endTime.getText().toString());
         String roomName = binding.spinnerRoom.toString();
+        LocalDate date = LocalDate.parse(binding.date.getText().toString());
 
 
         if (subject.isEmpty()) {
@@ -97,14 +102,9 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
-        mApiService.createMeeting(new Meeting(System.currentTimeMillis(),subject, roomName, email, startTime, endTime));
+        mApiService.createMeeting(new Meeting(System.currentTimeMillis(),subject, roomName, email, date, startTime, endTime));
         Toast.makeText(this, "Meeting created", Toast.LENGTH_SHORT).show();
         finish();
-    }
-
-    public static void navigate (FragmentActivity activity) {
-        Intent intent = new Intent(activity, AddMeetingActivity.class);
-        ActivityCompat.startActivity(activity, intent, null);
     }
 
 
@@ -125,6 +125,11 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     public static String timeToString (LocalDateTime time) {
         return time.format(getTimeFormatter());
+    }
+
+    public static void navigate (FragmentActivity activity) {
+        Intent intent = new Intent(activity, AddMeetingActivity.class);
+        ActivityCompat.startActivity(activity, intent, null);
     }
 }
 

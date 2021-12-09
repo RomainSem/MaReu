@@ -1,5 +1,10 @@
 package com.example.maru.service;
 
+import android.content.res.Resources;
+
+import androidx.annotation.StringRes;
+
+import com.example.maru.R;
 import com.example.maru.model.Meeting;
 import com.example.maru.model.Room;
 
@@ -13,8 +18,9 @@ import java.util.List;
 public abstract class DummyMeetingGenerator {
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
             new Meeting(0, "La fin du monde",
-                    Room.Donkey,
+                    "Peach",
                     "randommail@hotmail.fr",
+                    LocalDate.of(2021,12,6),
                     LocalDateTime.of(
                     LocalDate.now(),
                     LocalTime.of(12,30)),
@@ -23,8 +29,9 @@ public abstract class DummyMeetingGenerator {
                     LocalTime.of(13,15))
             ),
             new Meeting(0, "La fin du monde",
-                    Room.Peach,
+                    "Mario",
                     "randommail@hotmail.fr",
+                    LocalDate.of(2021,12,6),
                     LocalDateTime.of(
                             LocalDate.now(),
                             LocalTime.of(12,30)),

@@ -14,7 +14,9 @@ import com.example.maru.model.Meeting;
 import com.example.maru.R;
 import com.example.maru.model.Meeting;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
@@ -30,15 +32,15 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.itemview_meeting, parent, false);
         return new ViewHolder(view);
+
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
 
-        /*holder.mMeetingSubject.setText(meeting.getSubject());
 
-        holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour)));*/
+
 
     }
 
@@ -49,12 +51,28 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        public final TextView subject;
+        public final TextView time;
+        public final TextView roomName;
+        public final TextView emails;
+
 
 
         public ViewHolder(View view) {
             super(view);
+            subject = view.findViewById(R.id.subject);
+            time = view.findViewById(R.id.time);
+            roomName = view.findViewById(R.id.room_name);
+            emails = view.findViewById(R.id.emails);
 
 
+        }
+
+        public void displayMeetings(Meeting meeting) {
+            subject.setText(meeting.getSubject());
+          //  time.setText(AddMeetingActivity.getTimeFormatter()); //TODO
+            roomName.setText(meeting.getRoom());
+            emails.setText(meeting.getMail());
         }
     }
 }
