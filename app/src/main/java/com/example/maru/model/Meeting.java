@@ -1,20 +1,15 @@
 package com.example.maru.model;
 
-import android.widget.DatePicker;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
-import androidx.databinding.Bindable;
-import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
 
 
-public class Meeting {
+
+public class Meeting implements Serializable {
 
     /** Identifier */
     private long id;
@@ -22,10 +17,10 @@ public class Meeting {
     private LocalDate date;
 
     /** Start of meeting */
-    private LocalDateTime startOfMeeting;
+    private LocalTime startOfMeeting;
 
     /** End of meeting */
-    private LocalDateTime endOfMeeting;
+    private LocalTime endOfMeeting;
 
     /** Room name */
     private String room;
@@ -37,7 +32,7 @@ public class Meeting {
     private String subject;
 
     /** Constructor */
-    public Meeting(long id,String subject, String room, String mail, LocalDate date, LocalDateTime startOfMeeting, LocalDateTime endOfMeeting ) {
+    public Meeting(long id,String subject, String room, String mail, LocalDate date, LocalTime startOfMeeting, LocalTime endOfMeeting ) {
         this.id = id;
         this.subject = subject;
         this.room = room;
@@ -58,11 +53,11 @@ public class Meeting {
         this.id = id;
     }
 
-    public LocalDateTime getStartOfMeeting() {
+    public LocalTime getStartOfMeeting() {
         return startOfMeeting;
     }
 
-    public void setStartOfMeeting(LocalDateTime startOfMeeting) {
+    public void setStartOfMeeting(LocalTime startOfMeeting) {
         this.startOfMeeting = startOfMeeting;
     }
 
@@ -74,11 +69,11 @@ public class Meeting {
         this.room = room;
     }
 
-    public LocalDateTime getEndOfMeeting() {
+    public LocalTime getEndOfMeeting() {
         return endOfMeeting;
     }
 
-    public void setEndOfMeeting(LocalDateTime endOfMeeting) {
+    public void setEndOfMeeting(LocalTime endOfMeeting) {
         this.endOfMeeting = endOfMeeting;
     }
 

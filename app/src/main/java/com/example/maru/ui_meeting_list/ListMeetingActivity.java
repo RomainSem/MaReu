@@ -23,7 +23,8 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     private ActivityListMeetingBinding binding;
     private List<Meeting> meetings;
-    private MeetingApiService apiService = DI.getNeighbourApiService();
+    private MeetingApiService apiService = DI.getMeetingApiService();
+    ListMeetingPagerAdapter mPagerAdapter;
 
 
 
@@ -34,10 +35,11 @@ public class ListMeetingActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-
+        mPagerAdapter = new ListMeetingPagerAdapter(getSupportFragmentManager());
+        binding.container.setAdapter(mPagerAdapter);
         getSupportActionBar().hide();
 
-        binding.filterButton.setOnClickListener(v -> finish() ); //TODO
+        binding.filterButton.setOnClickListener(v -> finish() ); //TODO FILTER
 
         binding.createMeeting.setOnClickListener(v -> AddMeetingActivity.navigate(this));
     }

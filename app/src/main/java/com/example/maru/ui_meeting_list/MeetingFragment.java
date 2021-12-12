@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.maru.R;
+import com.example.maru.databinding.ItemviewMeetingBinding;
 import com.example.maru.di.DI;
 import com.example.maru.model.Meeting;
 import com.example.maru.service.MeetingApiService;
@@ -34,7 +35,7 @@ public class MeetingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mApiService = DI.getNeighbourApiService();
+        mApiService = DI.getMeetingApiService();
 
     }
 
@@ -47,12 +48,14 @@ public class MeetingFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
 
+
         return view;
+
     }
 
     private void initList() {
         mMeetings = mApiService.getMeetings();
-        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
+        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings, mApiService));
     }
 
     @Override
@@ -60,4 +63,15 @@ public class MeetingFragment extends Fragment {
         super.onResume();
         initList();
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
 }

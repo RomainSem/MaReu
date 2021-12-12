@@ -1,12 +1,6 @@
 package com.example.maru.service;
 
-import android.content.res.Resources;
-
-import androidx.annotation.StringRes;
-
-import com.example.maru.R;
 import com.example.maru.model.Meeting;
-import com.example.maru.model.Room;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,28 +11,21 @@ import java.util.List;
 
 public abstract class DummyMeetingGenerator {
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
-            new Meeting(0, "La fin du monde",
+
+            new Meeting(0, "Le début du monde",
                     "Peach",
-                    "randommail@hotmail.fr",
+                    "romain@hotmail.fr",
                     LocalDate.of(2021,12,6),
-                    LocalDateTime.of(
-                    LocalDate.now(),
-                    LocalTime.of(12,30)),
-            LocalDateTime.of(
-                    LocalDate.now(),
-                    LocalTime.of(13,15))
-            ),
+                    LocalTime.of(13,15),
+                    LocalTime.of(13,45)),
+
             new Meeting(0, "La fin du monde",
                     "Mario",
-                    "randommail@hotmail.fr",
+                    "randommail@hotmail.fr" + "; " + "machin@hotmail.com",
                     LocalDate.of(2021,12,6),
-                    LocalDateTime.of(
-                            LocalDate.now(),
-                            LocalTime.of(12,30)),
-                    LocalDateTime.of(
-                            LocalDate.now(),
-                            LocalTime.of(13,15))
-            )
+                    LocalTime.of(14,30),
+                    LocalTime.of(15,0))
+
     );
 
     static List<Meeting> generateMeetings() { return new ArrayList<>(DUMMY_MEETINGS); }

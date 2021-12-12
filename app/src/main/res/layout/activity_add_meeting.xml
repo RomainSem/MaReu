@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="@{model.subject}"
-                android:hint="Sujet de la réunion"
+                android:hint="@string/sujet_de_la_r_union"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0"
-                android:text="Select Room:" />
+                android:text="@string/select_room" />
 
             <Space
                 android:layout_width="10dp"
@@ -94,7 +94,7 @@
                 android:id="@+id/participants"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Participants" />
+                android:hint="@string/participants" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -107,8 +107,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date"
                 android:layout_width="match_parent"
+                android:focusable="false"
                 android:layout_height="wrap_content"
-                android:hint="Date" />
+                android:hint="@string/date" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -131,7 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
-                    android:hint="Heure début" />
+                    android:hint="@string/heure_debut" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -146,7 +147,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
-                    android:hint="Heure fin" />
+                    android:hint="@string/heure_fin" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -158,8 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:enabled="false"
-            android:text="Create"
+            android:text="@string/create"
             app:cornerRadius="20dp" />
 
     </LinearLayout>
