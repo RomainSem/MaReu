@@ -1,14 +1,12 @@
 package com.example.maru.ui_meeting_list;
 
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.maru.ui_meeting_list.MeetingFragment;
-
-
 public class ListMeetingPagerAdapter extends FragmentPagerAdapter {
-
     public ListMeetingPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -16,14 +14,14 @@ public class ListMeetingPagerAdapter extends FragmentPagerAdapter {
     /**
      * getItem is called to instantiate the fragment for the given page.
      */
+
+    @NonNull
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0 :
-                return MeetingFragment.newInstance();
-            default :
-                return null;
+        if (position == 0) {
+            return MeetingFragment.newInstance();
         }
+        return null;
     }
 
     /**

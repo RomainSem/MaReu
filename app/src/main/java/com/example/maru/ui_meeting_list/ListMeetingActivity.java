@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,8 +16,11 @@ import com.example.maru.databinding.ActivityListMeetingBinding;
 import com.example.maru.di.DI;
 import com.example.maru.model.Meeting;
 import com.example.maru.service.MeetingApiService;
+import com.example.maru.utils.DateTimeHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class ListMeetingActivity extends AppCompatActivity {
@@ -25,7 +29,6 @@ public class ListMeetingActivity extends AppCompatActivity {
     private List<Meeting> meetings;
     private MeetingApiService apiService = DI.getMeetingApiService();
     ListMeetingPagerAdapter mPagerAdapter;
-
 
 
     @Override
@@ -39,8 +42,9 @@ public class ListMeetingActivity extends AppCompatActivity {
         binding.container.setAdapter(mPagerAdapter);
         getSupportActionBar().hide();
 
-        binding.filterButton.setOnClickListener(v -> finish() ); //TODO FILTER
+        binding.filterButton.setOnClickListener(v -> finish()); //TODO FILTER
 
         binding.createMeeting.setOnClickListener(v -> AddMeetingActivity.navigate(this));
+
     }
 }

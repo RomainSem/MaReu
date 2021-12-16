@@ -22,10 +22,6 @@ public class DateTimeHelper {
         return date.format(getDateFormatter());
     }
 
-    /*public static String stringToDate(String dateString, LocalDate meetingDate) {
-        LocalDate date;
-        return "fa";
-    }*/
 
 }
 

@@ -1,16 +1,19 @@
 package com.example.maru.ui_meeting_list;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+
 import com.example.maru.R;
 import com.example.maru.databinding.ActivityAddMeetingBinding;
+import com.example.maru.di.DI;
 import com.example.maru.model.Meeting;
 import com.example.maru.service.MeetingApiService;
 import com.example.maru.utils.DateTimeHelper;
@@ -19,15 +22,20 @@ import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
     private ActivityAddMeetingBinding binding;
-    private MeetingApiService mApiService;
+    List<Meeting> meetingList;
+    MyMeetingRecyclerViewAdapter mAdapter;
+    MeetingApiService mApiService;
 
 
 
@@ -36,6 +44,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
+        mApiService = DI.getMeetingApiService();
 
 
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
@@ -49,8 +58,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding.spinnerRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String text = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(adapterView.getContext(), text, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -63,7 +70,12 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding.startTime.setOnClickListener(v -> buttonSelectTime("debut"));
         binding.endTime.setOnClickListener(v -> buttonSelectTime("fin"));
         binding.date.setOnClickListener(v -> buttonSelectDate());
-        binding.create.setOnClickListener(v -> onSubmit());
+
+        binding.createButton.setOnClickListener(view1 -> {
+            onSubmit();
+            Toast.makeText(getApplicationContext(), "Meeting created", Toast.LENGTH_SHORT).show();
+        });
+
 
 
     }
@@ -104,44 +116,54 @@ public class AddMeetingActivity extends AppCompatActivity {
                 }*/
                 LocalTime localTime = LocalTime.of(timePicker.getHour(), timePicker.getMinute());
                 binding.endTime.setText(DateTimeHelper.timeToString(localTime));
-                }
-
+            }
         });
-
-        }
+    }
 
 
     private void onSubmit() {
         String subject = binding.meetingSubject.getText().toString();
         String email = binding.participants.getText().toString();
-        LocalTime startTime = LocalTime.parse(binding.startTime.getText().toString());  //TODO CRASH
-        LocalTime endTime = LocalTime.parse(binding.endTime.getText().toString());  //TODO CRASH
         String roomName = binding.spinnerRoom.toString();
-        LocalDate date = LocalDate.parse(binding.date.getText().toString());
+        LocalDate date = LocalDate.parse(binding.date.getText().toString(), DateTimeHelper.getDateFormatter());
+        LocalTime startTime = LocalTime.parse(binding.startTime.getText().toString(), DateTimeHelper.getTimeFormatter());
+        LocalTime endTime = LocalTime.parse(binding.endTime.getText().toString(), DateTimeHelper.getTimeFormatter());
 
 
-        if (subject.isEmpty()) {
-            binding.meetingSubject.setError("Please type a subject");
-        }
-        if (email.isEmpty()) {
-            binding.participants.setError("Please enter at least one email");
-        }
-        if(roomName.isEmpty()) {
-            binding.nameLyt.setError("Please choose a room");
-        }
+            if (subject.isEmpty()) {
+                binding.meetingSubject.setError("Please type a subject");
+            }
+            if (email.isEmpty()) {
+                binding.participants.setError("Please enter at least one email");
+            }
+            if (date == null) {
+                binding.date.setError("Please enter a date");
+            }
+            if (startTime == null) {
+                binding.startLyt.setError("Please choose time to start meeting");
+            }
+            if (endTime == null) {
+                binding.startLyt.setError("Please choose time to end meeting");
+            }
+            else {
+                generateMeeting();
+            }
 
-        mApiService.createMeeting(
-                new Meeting(
-                        System.currentTimeMillis(),
-                        subject,
-                        roomName,
-                        email,
-                        date,
-                        startTime,
-                        endTime)
-        );
-        Toast.makeText(this, "Meeting created", Toast.LENGTH_SHORT).show();
-        finish();
+    }
+
+    private void generateMeeting() {
+       Meeting meeting =  new Meeting(
+                System.currentTimeMillis(),
+                binding.meetingSubject.getText().toString(),
+                binding.spinnerRoom.getSelectedItem().toString(),
+                binding.participants.getText().toString(),
+                LocalDate.parse(binding.date.getText().toString(), DateTimeHelper.getDateFormatter()),
+                LocalTime.parse(binding.startTime.getText().toString(), DateTimeHelper.getTimeFormatter()),
+                LocalTime.parse(binding.endTime.getText().toString(), DateTimeHelper.getTimeFormatter()));
+
+           mApiService.createMeeting(meeting);
+           finish();
+
     }
 
 
@@ -149,5 +171,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, AddMeetingActivity.class);
         ActivityCompat.startActivity(activity, intent, null);
     }
+
+
 }
 

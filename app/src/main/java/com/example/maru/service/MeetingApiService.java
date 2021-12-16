@@ -18,11 +18,12 @@ public interface MeetingApiService {
     /**
      * Deletes a meeting
      */
-    void deleteMeeting(Meeting meeting);
+    void deleteMeeting(Meeting pMeeting);
+
 
     /**
      * Create a meeting
      */
-    void createMeeting(Meeting meeting);
+    void createMeeting(Meeting pMeeting);
 
 }
