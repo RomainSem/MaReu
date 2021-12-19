@@ -7,4 +7,15 @@
     <color name="yellow">#D4AF37</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="Zelda">#30293E</color>
+    <color name="Donkey">#E4710D</color>
+    <color name="Link">#671900</color>
+    <color name="Kirby">#FFC107</color>
+    <color name="Luigi">#007C1F</color>
+    <color name="Mario">#DC1607</color>
+    <color name="Peach">#FF99CE</color>
+    <color name="Toad">#44C5FF</color>
+    <color name="Wario">#820098</color>
+    <color name="Yoshi">#009688</color>
 </resources>

@@ -1,17 +1,16 @@
 package com.example.maru.ui_meeting_list;
 
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.DiffUtil;
+
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import com.example.maru.databinding.ItemviewMeetingBinding;
 import com.example.maru.model.Meeting;
 import com.example.maru.service.MeetingApiService;
 import com.example.maru.utils.DateTimeHelper;
+import com.example.maru.utils.AvatarColor;
 import java.util.List;
 
 
@@ -41,8 +40,9 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         holder.binding.subject.setText(meeting.getSubject());
         holder.binding.time.setText(DateTimeHelper.timeToString(meeting.getStartOfMeeting()));
         holder.binding.roomName.setText(meeting.getRoom());
+        String roomName = holder.binding.roomName.getText().toString();
         holder.binding.emails.setText(meeting.getMail());
-
+        holder.binding.avatar.setColorFilter(AvatarColor.getRoomColor(roomName));
 
         holder.binding.deleteButton.setOnClickListener(view -> {
             mApiService.deleteMeeting(meeting);

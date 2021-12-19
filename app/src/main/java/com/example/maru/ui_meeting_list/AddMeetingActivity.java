@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
@@ -66,9 +68,11 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
-
         binding.startTime.setOnClickListener(v -> buttonSelectTime("debut"));
         binding.endTime.setOnClickListener(v -> buttonSelectTime("fin"));
+        binding.date.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("d/MM/yyyy")));
+        binding.startTime.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+        binding.endTime.setText(LocalTime.now().plusMinutes(45).format(DateTimeFormatter.ofPattern("HH:mm")));
         binding.date.setOnClickListener(v -> buttonSelectDate());
 
         binding.createButton.setOnClickListener(view1 -> {
@@ -124,10 +128,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     private void onSubmit() {
         String subject = binding.meetingSubject.getText().toString();
         String email = binding.participants.getText().toString();
-        String roomName = binding.spinnerRoom.toString();
-        LocalDate date = LocalDate.parse(binding.date.getText().toString(), DateTimeHelper.getDateFormatter());
-        LocalTime startTime = LocalTime.parse(binding.startTime.getText().toString(), DateTimeHelper.getTimeFormatter());
-        LocalTime endTime = LocalTime.parse(binding.endTime.getText().toString(), DateTimeHelper.getTimeFormatter());
 
 
             if (subject.isEmpty()) {
@@ -135,15 +135,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
             if (email.isEmpty()) {
                 binding.participants.setError("Please enter at least one email");
-            }
-            if (date == null) {
-                binding.date.setError("Please enter a date");
-            }
-            if (startTime == null) {
-                binding.startLyt.setError("Please choose time to start meeting");
-            }
-            if (endTime == null) {
-                binding.startLyt.setError("Please choose time to end meeting");
             }
             else {
                 generateMeeting();

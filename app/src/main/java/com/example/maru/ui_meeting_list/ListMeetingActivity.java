@@ -46,5 +46,6 @@ public class ListMeetingActivity extends AppCompatActivity {
 
         binding.createMeeting.setOnClickListener(v -> AddMeetingActivity.navigate(this));
 
+
     }
 }
