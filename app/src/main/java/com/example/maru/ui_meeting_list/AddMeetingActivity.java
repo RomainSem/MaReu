@@ -79,10 +79,8 @@ public class AddMeetingActivity extends AppCompatActivity {
             onSubmit();
             Toast.makeText(getApplicationContext(), "Meeting created", Toast.LENGTH_SHORT).show();
         });
-
-
-
     }
+
 
     private void buttonSelectDate() {
         CalendarConstraints constraints = new CalendarConstraints.Builder()
@@ -102,7 +100,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
 
-
     private void buttonSelectTime(String debutfin) {
         MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)
@@ -115,9 +112,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                 binding.startTime.setText(DateTimeHelper.timeToString(localTime));
             }
             else if (debutfin.equals("fin")){
-                /*if(endHour < startHour) {
-                    binding.endTime.setError("End meeting time cannot happen before start meeting time");
-                }*/
                 LocalTime localTime = LocalTime.of(timePicker.getHour(), timePicker.getMinute());
                 binding.endTime.setText(DateTimeHelper.timeToString(localTime));
             }

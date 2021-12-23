@@ -41,6 +41,7 @@ public class ListMeetingActivity extends AppCompatActivity {
         mPagerAdapter = new ListMeetingPagerAdapter(getSupportFragmentManager());
         binding.container.setAdapter(mPagerAdapter);
         getSupportActionBar().hide();
+        setSupportActionBar(binding.toolbar);
 
         binding.filterButton.setOnClickListener(v -> finish()); //TODO FILTER
 

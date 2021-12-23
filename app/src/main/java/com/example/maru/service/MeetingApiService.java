@@ -23,7 +23,8 @@ public interface MeetingApiService {
 
     /**
      * Create a meeting
+     * @return
      */
-    void createMeeting(Meeting pMeeting);
+    Meeting createMeeting(Meeting pMeeting);
 
 }

@@ -18,14 +18,14 @@ public abstract class DummyMeetingGenerator {
                     LocalTime.of(13,15),
                     LocalTime.of(13,45)),
 
-            new Meeting(0, "Réunion B",
+            new Meeting(1, "Réunion B",
                     "Mario",
                     "randommail@hotmail.fr" + "; " + "machin@hotmail.com",
                     LocalDate.of(2021,12,6),
                     LocalTime.of(14,30),
                     LocalTime.of(15,0)),
 
-            new Meeting(0, "Réunion C",
+            new Meeting(2, "Réunion C",
                     "Luigi",
                     "maxime@hotmail.fr" + "; " + "alexandre@gmail.fr",
                     LocalDate.of(2021,12,6),
