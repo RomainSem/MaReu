@@ -2,6 +2,8 @@ package com.example.maru.service;
 
 import com.example.maru.model.Meeting;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 /** Meeting API Client */
@@ -26,5 +28,9 @@ public interface MeetingApiService {
      * @return
      */
     Meeting createMeeting(Meeting pMeeting);
+
+    List<Meeting> filterByRoom(String meetingRoom);
+
+    List<Meeting> filterByDate(LocalDate meetingDate);
 
 }

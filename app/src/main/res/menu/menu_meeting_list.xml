@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/filter_menu_activity_main"
+        android:icon="@drawable/ic_baseline_filter_list_24"
+        android:title="filter"
+        app:showAsAction="ifRoom">
+
+        <menu>
+
+            <group>
+                <item
+                    android:checkable="false"
+                    android:enabled="false"
+                    android:title="Filter meetings" />
+
+                <item
+                    android:id="@+id/option_1_date"
+                    android:title="By Date">
+
+                    <menu>
+
+                        <group
+                            android:id="@+id/option_filter_1_date"
+                            android:checkableBehavior="all">
+
+                        </group>
+                    </menu>
+                </item>
+                <item
+                    android:id="@+id/option_2_room"
+                    android:title="By Room">
+
+                    <menu>
+
+                        <group
+                            android:id="@+id/option_filter_2_room"
+                            android:checkableBehavior="all" />
+                    </menu>
+                </item>
+                <item
+                    android:id="@+id/option_3_reset"
+                    android:title="RESET">
+
+                    <menu>
+
+                        <group
+                            android:id="@+id/option_filter_3_reset"
+                            android:checkableBehavior="all" />
+                    </menu>
+                </item>
+            </group>
+        </menu>
+    </item>
+</menu>
+
+

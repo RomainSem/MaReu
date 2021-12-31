@@ -75,6 +75,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding.endTime.setText(LocalTime.now().plusMinutes(45).format(DateTimeFormatter.ofPattern("HH:mm")));
         binding.date.setOnClickListener(v -> buttonSelectDate());
 
+        binding.cancelButton.setOnClickListener(v -> onBackPressed());
+
         binding.createButton.setOnClickListener(view1 -> {
             onSubmit();
             Toast.makeText(getApplicationContext(), "Meeting created", Toast.LENGTH_SHORT).show();

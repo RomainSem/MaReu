@@ -14,7 +14,7 @@ public abstract class DummyMeetingGenerator {
             new Meeting(0, "Réunion A",
                     "Peach",
                     "romain@hotmail.fr",
-                    LocalDate.of(2021,12,6),
+                    LocalDate.of(2021,12,5),
                     LocalTime.of(13,15),
                     LocalTime.of(13,45)),
 
@@ -28,7 +28,7 @@ public abstract class DummyMeetingGenerator {
             new Meeting(2, "Réunion C",
                     "Luigi",
                     "maxime@hotmail.fr" + "; " + "alexandre@gmail.fr",
-                    LocalDate.of(2021,12,6),
+                    LocalDate.of(2021,12,7),
                     LocalTime.of(14,30),
                     LocalTime.of(15,0))
 

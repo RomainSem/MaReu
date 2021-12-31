@@ -8,6 +8,7 @@
     <string name="select_room">Select Room:</string>
     <string name="sujet_de_la_r_union">Sujet de la réunion</string>
     <string name="filter">Filter</string>
+    <string name="cancel">CANCEL</string>
 
 
     <string-array name="room_choice">

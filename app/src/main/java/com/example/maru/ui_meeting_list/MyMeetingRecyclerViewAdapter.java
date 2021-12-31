@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.maru.databinding.ItemviewMeetingBinding;
 import com.example.maru.model.Meeting;
@@ -46,7 +47,8 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
         holder.binding.deleteButton.setOnClickListener(view -> {
             mApiService.deleteMeeting(meeting);
-            notifyItemRemoved(getItemCount());
+            notifyItemRemoved(position);
+            Toast.makeText(view.getContext(), "Meeting has been deleted", Toast.LENGTH_SHORT).show();
         });
     }
 
