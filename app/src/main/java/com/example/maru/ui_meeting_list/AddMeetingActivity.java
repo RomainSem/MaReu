@@ -35,8 +35,6 @@ import java.util.List;
 public class AddMeetingActivity extends AppCompatActivity {
 
     private ActivityAddMeetingBinding binding;
-    List<Meeting> meetingList;
-    MyMeetingRecyclerViewAdapter mAdapter;
     MeetingApiService mApiService;
 
 

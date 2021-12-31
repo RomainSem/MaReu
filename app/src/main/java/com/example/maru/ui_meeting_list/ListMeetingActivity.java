@@ -1,13 +1,19 @@
 package com.example.maru.ui_meeting_list;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -36,6 +42,7 @@ import java.util.List;
 public class ListMeetingActivity extends AppCompatActivity {
 
     private ActivityListMeetingBinding binding;
+    private Spinner roomInput;
     private List<Meeting> meetings;
     private RecyclerView mRecyclerView;
     private MeetingApiService apiService;
@@ -68,7 +75,7 @@ public class ListMeetingActivity extends AppCompatActivity {
                 openDateDialog();
                 return true;
             case R.id.option_2_room:
-                //openRoomDialog();
+                openRoomDialog();
                 return true;
             case R.id.option_3_reset:
                 initList();
@@ -86,7 +93,25 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
     private void openRoomDialog() {
+        AlertDialog.Builder mBuilder =
+                new AlertDialog.Builder(this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_spinner, null);
+        roomInput = (Spinner) mView.findViewById(R.id.dialog_spinner);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.room_choice, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roomInput.setAdapter(adapter);
+
+        mBuilder.setView(mView)
+                .setTitle("Choose a room")
+                .setNegativeButton("Cancel", (dialogInterface, i) -> {})
+                .setPositiveButton("Filter", (dialogInterface, i) -> {
+                    String mRoom = roomInput.getSelectedItem().toString();
+                    meetings = apiService.filterByRoom(mRoom);
+                    mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(meetings, apiService));
+                });
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
     }
 
     private void openDateDialog() {

@@ -39,6 +39,7 @@ public class DummyMeetingApiService implements MeetingApiService{
                 filteredList.add(meeting);
             }
         }
+        System.out.println("REGARDE ICI POUR LES ROOMS " + filteredList.size());
         return filteredList;
     }
 
@@ -50,7 +51,7 @@ public class DummyMeetingApiService implements MeetingApiService{
                 filteredList.add(meeting);
             }
         }
-        System.out.println("REGARDE ICI " + filteredList.size());
+        System.out.println("REGARDE ICI POUR LA DATE " + filteredList.size());
         return filteredList;
     }
 

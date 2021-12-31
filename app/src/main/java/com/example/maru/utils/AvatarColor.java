@@ -1,8 +1,5 @@
 package com.example.maru.utils;
 
-
-import android.widget.Spinner;
-
 public class AvatarColor {
     private static int meetingColor;
 
