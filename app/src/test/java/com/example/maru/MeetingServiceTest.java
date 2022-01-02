@@ -58,4 +58,17 @@ public class MeetingServiceTest {
                 LocalTime.of(17,0)));
         assertTrue(service.getMeetings().contains(meetingToCreate));
     }
+
+    @Test
+    public void filterByDateWithSuccess() {
+        List<Meeting> meetings = service.filterByDate(LocalDate.of(2022,1,2));
+        assertEquals(1, meetings.size());
+    }
+
+    @Test
+    public void filterByRoomWithSuccess() {
+        String roomName = "Peach";
+        List<Meeting> meetings = service.filterByRoom(roomName);
+        assertEquals(2, meetings.size());
+    }
 }

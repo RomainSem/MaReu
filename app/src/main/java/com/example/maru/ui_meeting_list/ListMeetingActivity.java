@@ -110,8 +110,7 @@ public class ListMeetingActivity extends AppCompatActivity {
                     meetings = apiService.filterByRoom(mRoom);
                     mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(meetings, apiService));
                 });
-        AlertDialog dialog = mBuilder.create();
-        dialog.show();
+        mBuilder.create().show();
     }
 
     private void openDateDialog() {

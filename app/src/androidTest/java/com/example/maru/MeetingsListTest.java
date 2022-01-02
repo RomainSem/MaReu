@@ -9,6 +9,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
@@ -99,4 +100,22 @@ public class MeetingsListTest {
         onView(withId(R.id.createButton)).perform(click());
         onView(withId(R.id.list_meetings)).check(withItemCount(initialMeetingCount + 1) );
     }
+
+    @Test
+    public void filterMeetingByDate_shouldWork() {
+        int initialMeetingCount = DummyMeetingGenerator.DUMMY_MEETINGS.size();
+        onView(withId(R.id.filter_menu_activity_main)).perform(click());
+        onView(withText("By Date")).perform(click());
+        onView(withText("OK")).perform(click());
+        onView(withId(R.id.list_meetings)).check(withItemCount(initialMeetingCount - 4));
     }
+
+    @Test
+    public void filterMeetingByRoom_shouldWork() {
+        int initialMeetingCount = DummyMeetingGenerator.DUMMY_MEETINGS.size();
+        onView(withId(R.id.filter_menu_activity_main)).perform(click());
+        onView(withText("By Room")).perform(click());
+        onView(withText("FILTER")).perform(click());
+        onView(withId(R.id.list_meetings)).check(withItemCount(initialMeetingCount - 3));
+    }
+}
