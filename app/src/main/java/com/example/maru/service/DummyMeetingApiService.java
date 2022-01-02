@@ -21,14 +21,14 @@ public class DummyMeetingApiService implements MeetingApiService{
 
 
     @Override
-    public void deleteMeeting(Meeting pMeeting) {
-        meetings.remove(pMeeting);
+    public void deleteMeeting(Meeting meeting) {
+        meetings.remove(meeting);
     }
 
     @Override
-    public Meeting createMeeting(Meeting pMeeting) {
-        meetings.add(pMeeting);
-        return pMeeting;
+    public Meeting createMeeting(Meeting meeting) {
+        meetings.add(meeting);
+        return meeting;
     }
 
     @Override

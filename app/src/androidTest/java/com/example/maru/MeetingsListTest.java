@@ -47,9 +47,8 @@ import java.time.LocalTime;
 @RunWith(AndroidJUnit4.class)
 public class MeetingsListTest {
 
-    private static int ITEMS_COUNT = 3;
     private ListMeetingActivity mActivity;
-    private Meeting meetingName;
+    int initialMeetingCount = DummyMeetingGenerator.DUMMY_MEETINGS.size();
 
     @Rule
     public ActivityTestRule<ListMeetingActivity> mActivityRule =
@@ -71,11 +70,10 @@ public class MeetingsListTest {
 
     @Test
     public void myMeetingList_deleteAction_shouldRemoveItem() {
-        onView(withId(R.id.list_meetings)).check(withItemCount(ITEMS_COUNT));
         onView(withId(R.id.list_meetings))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteButtonAction()));
         onView((withId(R.id.list_meetings)))
-                .check(withItemCount(ITEMS_COUNT - 1));
+                .check(withItemCount(initialMeetingCount - 1));
         }
 
     @Test
@@ -85,25 +83,7 @@ public class MeetingsListTest {
     }
 
     @Test
-    public void createMeeting_shouldCreate() {
-        int initialMeetingCount = DummyMeetingGenerator.DUMMY_MEETINGS.size();
-
-        Meeting expectedMeeting = new Meeting(10, "Project 5", "Peach",
-                "link@hotmail.fr; " + "zelda@hotmail.fr",
-                LocalDate.now(), LocalTime.now(), LocalTime.now().plusMinutes(45));
-
-        onView(withId(R.id.create_meeting)).perform(click());
-        onView(withId(R.id.meeting_subject)).perform(typeText(expectedMeeting.getSubject()));
-        onView(isRoot()).perform(pressBack());
-        onView(withId(R.id.participants)).perform(typeText(expectedMeeting.getMail()));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createButton)).perform(click());
-        onView(withId(R.id.list_meetings)).check(withItemCount(initialMeetingCount + 1) );
-    }
-
-    @Test
     public void filterMeetingByDate_shouldWork() {
-        int initialMeetingCount = DummyMeetingGenerator.DUMMY_MEETINGS.size();
         onView(withId(R.id.filter_menu_activity_main)).perform(click());
         onView(withText("By Date")).perform(click());
         onView(withText("OK")).perform(click());
@@ -112,7 +92,6 @@ public class MeetingsListTest {
 
     @Test
     public void filterMeetingByRoom_shouldWork() {
-        int initialMeetingCount = DummyMeetingGenerator.DUMMY_MEETINGS.size();
         onView(withId(R.id.filter_menu_activity_main)).perform(click());
         onView(withText("By Room")).perform(click());
         onView(withText("FILTER")).perform(click());

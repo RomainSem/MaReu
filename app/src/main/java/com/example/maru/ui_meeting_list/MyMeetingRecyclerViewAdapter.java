@@ -47,7 +47,8 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
         holder.binding.deleteButton.setOnClickListener(view -> {
             mApiService.deleteMeeting(meeting);
-            notifyItemRemoved(position);
+            notifyDataSetChanged();
+            /*notifyItemRemoved(position);*/ //BUG
             Toast.makeText(view.getContext(), "Meeting has been deleted", Toast.LENGTH_SHORT).show();
         });
     }
