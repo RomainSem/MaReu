@@ -14,6 +14,8 @@ Using this application, you can :
 
 # Build and Run
 
-To run this application, you will need Android Studio installed.
-You will need to create an emulator inside Android Studio.
-Then, simply execute the application using the green arrow or CTRL + R
+To run this application : 
+
+  - You will need Android Studio installed.
+  - You will need to create an emulator inside Android Studio.
+  - Then, simply execute the application using the green arrow or CTRL + R
