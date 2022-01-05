@@ -68,10 +68,12 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         binding.startTime.setOnClickListener(v -> buttonSelectTime("debut"));
         binding.endTime.setOnClickListener(v -> buttonSelectTime("fin"));
+        binding.date.setOnClickListener(v -> buttonSelectDate());
+
         binding.date.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("d/MM/yyyy")));
         binding.startTime.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
         binding.endTime.setText(LocalTime.now().plusMinutes(45).format(DateTimeFormatter.ofPattern("HH:mm")));
-        binding.date.setOnClickListener(v -> buttonSelectDate());
+
 
         binding.cancelButton.setOnClickListener(v -> onBackPressed());
 
@@ -148,7 +150,6 @@ public class AddMeetingActivity extends AppCompatActivity {
 
            mApiService.createMeeting(meeting);
            finish();
-
     }
 
 
@@ -156,7 +157,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, AddMeetingActivity.class);
         ActivityCompat.startActivity(activity, intent, null);
     }
-
 
 }
 
