@@ -20,14 +20,14 @@ public interface MeetingApiService {
     /**
      * Deletes a meeting
      */
-    void deleteMeeting(Meeting pMeeting);
+    void deleteMeeting(int position);
 
 
     /**
      * Create a meeting
      * @return
      */
-    Meeting createMeeting(Meeting pMeeting);
+    Meeting createMeeting(Meeting meeting);
 
     List<Meeting> filterByRoom(String meetingRoom);
 
