@@ -20,7 +20,7 @@ public interface MeetingApiService {
     /**
      * Deletes a meeting
      */
-    void deleteMeeting(int position);
+    void deleteMeeting(Meeting meeting);
 
 
     /**

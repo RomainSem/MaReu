@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
 
 import com.example.maru.di.DI;
 import com.example.maru.model.Meeting;
-import com.example.maru.service.DummyMeetingApiService;
 import com.example.maru.service.DummyMeetingGenerator;
 import com.example.maru.service.MeetingApiService;
 
@@ -42,8 +41,10 @@ public class MeetingServiceTest {
 
     @Test
     public void deleteMeetingWithSuccess() {
-        service.deleteMeeting(0);
-        assertEquals(4, service.getMeetings().size());
+        int taille = service.getMeetings().size();
+        Meeting meetingToDelete = service.getMeetings().get(0);
+        service.deleteMeeting(meetingToDelete);
+        assertEquals(taille - 1, service.getMeetings().size());
     }
 
     @Test

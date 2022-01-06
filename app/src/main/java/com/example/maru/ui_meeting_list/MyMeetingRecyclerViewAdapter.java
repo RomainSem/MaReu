@@ -46,7 +46,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         holder.binding.avatar.setColorFilter(AvatarColor.getRoomColor(roomName));
 
         holder.binding.deleteButton.setOnClickListener(view -> {
-            mApiService.deleteMeeting(position);
+            mApiService.deleteMeeting(meeting);
            // notifyDataSetChanged();
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, mMeetings.size());
